@@ -68,6 +68,23 @@ class Asteroids:
             if not self.screen.get_rect().collidepoint(bullet.position):
                 self.bullets.remove(bullet)
 
+        if self.spaceship:
+            for asteroid in self.asteroids:
+                if asteroid.collides_with(self.spaceship):
+                    self.spaceship.destroy()
+                    self.spaceship = None
+                    self.message = "You lost!"
+                    break
+
+        for bullet in self.bullets[:]:
+            for asteroid in self.asteroids[:]:
+                if asteroid.collides_with(bullet):
+                    self.asteroids.remove(asteroid)
+                    self.bullets.remove(bullet)
+                    asteroid.split()
+                    break
+                                
+
     def _get_game_objects(self) -> list[GameObject]:
         game_objects = [*self.asteroids, *self.bullets]
         if self.spaceship:

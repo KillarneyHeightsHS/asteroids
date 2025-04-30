@@ -273,3 +273,40 @@ class Asteroids:
             game_objects.append(self.spaceship)
         return game_objects
 ```
+
+## Step 11 - Collisions
+The game is kind of boring without collisions. Both of asteroids with the spaceship and bullets with asteroids should be handled.
+
+*Existing code*
+```python
+    def _process_game_logic(self) -> None:
+        for game_object in self._get_game_objects():
+            game_object.move(self.screen)
+            
+        for bullet in self.bullets[:]:
+            if not self.screen.get_rect().collidepoint(bullet.position):
+                self.bullets.remove(bullet)
+```
+
+1. Add to `_process_game_logic` checks to see if an asteroid collides with the spaceship to destroy the spaceship
+```python
+
+        if self.spaceship:
+            for asteroid in self.asteroids:
+                if asteroid.collides_with(self.spaceship):
+                    self.spaceship.destroy()
+                    self.spaceship = None
+                    self.message = "You lost!"
+                    break
+```
+
+2. Add to `_process_game_logic` checks to see if a bullet hits an asteroid, destroying both the bullet and splitting the asteroid into smaller pieces.
+```python
+        for bullet in self.bullets[:]:
+            for asteroid in self.asteroids[:]:
+                if asteroid.collides_with(bullet):
+                    self.asteroids.remove(asteroid)
+                    self.bullets.remove(bullet)
+                    asteroid.split()
+                    break
+```
