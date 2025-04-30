@@ -219,3 +219,57 @@ Lets make the ship fire bullets when the space bar is pressed.
             game_objects.append(self.spaceship)
         return game_objects
 ```
+
+## Step 10 - Asteroids
+Lets add some asteroids for us to destroy.
+
+1. Update the imports to include the `Asteroid` class and random placement of the asteroids.
+
+```python
+from util import load_sprite, get_random_position
+from models import Asteroid, Spaceship, GameObject
+```
+
+2. Create a minimum distance for the asteroids to be from the spaceship.
+```python
+class Asteroids:
+    MIN_ASTEROID_DISTANCE = 250
+```
+
+3. Create a list of asteroids
+```python
+    def __init__(self) -> None:
+        self._init_pygame()
+        self.screen = pygame.display.set_mode((800, 600))
+        self.background = load_sprite("space", False)
+        self.clock = pygame.time.Clock()
+        self.spaceship = None
+        self.bullets = []
+        self.asteroids = []    # <-- new code
+        self._setup()
+```
+
+4. Add asteroids to the game loop.
+```python
+    def _setup(self) -> None:
+        self.bullets.clear()
+        self.asteroids.clear()
+        self.spaceship = Spaceship((400, 300), self.bullets.append)
+
+        for _ in range(6):
+            while True:
+                position = get_random_position(self.screen)
+                if (position.distance_to(self.spaceship.position) > self.MIN_ASTEROID_DISTANCE):
+                    break            
+
+            self.asteroids.append(Asteroid(position, self.asteroids.append))
+```
+
+5. Ensure the asteroids are draw on the screen
+```python
+    def _get_game_objects(self) -> list[GameObject]:
+        game_objects = [*self.asteroids, *self.bullets]
+        if self.spaceship:
+            game_objects.append(self.spaceship)
+        return game_objects
+```

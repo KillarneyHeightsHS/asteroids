@@ -1,9 +1,10 @@
 import pygame
-from util import load_sprite
-from models import Spaceship, GameObject
+from util import load_sprite, get_random_position
+from models import Asteroid, Spaceship, GameObject
 
 class Asteroids:
-
+    MIN_ASTEROID_DISTANCE = 250
+    
     def __init__(self) -> None:
         self._init_pygame()
         self.screen = pygame.display.set_mode((800, 600))
@@ -11,6 +12,7 @@ class Asteroids:
         self.clock = pygame.time.Clock()
         self.spaceship = None
         self.bullets = []
+        self.asteroids = []
         self._setup()
     
     def main_loop(self) -> None:
@@ -25,7 +27,16 @@ class Asteroids:
 
     def _setup(self) -> None:
         self.bullets.clear()
+        self.asteroids.clear()
         self.spaceship = Spaceship((400, 300), self.bullets.append)
+
+        for _ in range(6):
+            while True:
+                position = get_random_position(self.screen)
+                if (position.distance_to(self.spaceship.position) > self.MIN_ASTEROID_DISTANCE):
+                    break            
+
+            self.asteroids.append(Asteroid(position, self.asteroids.append))
 
     def _handle_input(self) -> None:
         for event in pygame.event.get():
@@ -58,7 +69,7 @@ class Asteroids:
                 self.bullets.remove(bullet)
 
     def _get_game_objects(self) -> list[GameObject]:
-        game_objects = [*self.bullets]
+        game_objects = [*self.asteroids, *self.bullets]
         if self.spaceship:
             game_objects.append(self.spaceship)
         return game_objects
