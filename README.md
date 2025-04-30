@@ -72,8 +72,7 @@ Key things to note:
 - `main.py` is the entry point of the game.
 - `space_rocks.py` is where the game loop is defined.
 
-## Step 7
-Adding the Spaceship
+## Step 7 - Adding the Spaceship
 
 We need to modify `space_rocks.py` to load the spaceship sprite and add it to the game.
 
