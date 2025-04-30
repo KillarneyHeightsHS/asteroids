@@ -65,7 +65,6 @@ class Spaceship(GameObject):
 
     def decelerate(self) -> None:
         self.velocity -= self.direction * self.DECELERATION
-        print(f'{self.velocity} {self.direction}')
         if (self.velocity.x < self.MIN_VELOCITY): 
             self.velocity.x = self.MIN_VELOCITY
         if (self.velocity.y < self.MIN_VELOCITY): 
