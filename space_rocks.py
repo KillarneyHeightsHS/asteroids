@@ -32,13 +32,13 @@ class Asteroids:
         self.bullets.clear()
         self.spaceship = Spaceship((400, 300), self.bullets.append)
 
-        for _ in range(6):
-            while True:
-                position = get_random_position(self.screen)
-                if (position.distance_to(self.spaceship.position) > self.MIN_ASTEROID_DISTANCE):
-                    break            
+        asteroid_count = 0
+        while asteroid_count < 6:
+            position = get_random_position(self.screen)
+            if (position.distance_to(self.spaceship.position) > self.MIN_ASTEROID_DISTANCE):
+                self.asteroids.append(Asteroid(position, self.asteroids.append))
+                asteroid_count += 1
 
-            self.asteroids.append(Asteroid(position, self.asteroids.append))
 
     def _handle_input(self) -> None:
         for event in pygame.event.get():
