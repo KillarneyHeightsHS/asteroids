@@ -1,5 +1,5 @@
 import pygame
-from util import load_sprite, get_random_position
+from util import load_sprite, get_random_position, print_text
 from models import Asteroid, Spaceship, GameObject
 
 class Asteroids:
@@ -11,6 +11,8 @@ class Asteroids:
         self.background = load_sprite("space", False)
         self.clock = pygame.time.Clock()
         self.spaceship = None
+        self.font = pygame.font.Font(None, 64)        
+        self.message = ""
         self.bullets = []
         self.asteroids = []
         self._setup()
@@ -26,6 +28,7 @@ class Asteroids:
         pygame.display.set_caption("Asteroids")
 
     def _setup(self) -> None:
+        self.message = ""
         self.bullets.clear()
         self.asteroids.clear()
         self.spaceship = Spaceship((400, 300), self.bullets.append)
@@ -83,7 +86,9 @@ class Asteroids:
                     self.bullets.remove(bullet)
                     asteroid.split()
                     break
-                                
+
+        if not self.asteroids and self.spaceship:
+            self.message = "You won!"                                
 
     def _get_game_objects(self) -> list[GameObject]:
         game_objects = [*self.asteroids, *self.bullets]
@@ -96,6 +101,9 @@ class Asteroids:
 
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
+            
+        if self.message:
+            print_text(self.screen, self.message, self.font)
             
         pygame.display.flip()
         self.clock.tick(60)
