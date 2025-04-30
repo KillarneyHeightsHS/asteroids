@@ -19,7 +19,7 @@ class Asteroids:
         pygame.init()
         pygame.display.set_caption("Asteroids")
 
-    def _play_again(self) -> None:
+    def _setup(self) -> None:
         pass
 
     def _handle_input(self) -> None:
