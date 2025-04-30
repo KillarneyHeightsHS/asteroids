@@ -1,5 +1,6 @@
 import pygame
 from util import load_sprite
+from models import Spaceship, GameObject
 
 class Asteroids:
 
@@ -8,7 +9,10 @@ class Asteroids:
         self.screen = pygame.display.set_mode((800, 600))
         self.background = load_sprite("space", False)
         self.clock = pygame.time.Clock()
-    
+        self.spaceship = None
+        self.bullets = []
+        self._setup()
+
     def main_loop(self) -> None:
         while True:
             self._handle_input()
@@ -19,8 +23,8 @@ class Asteroids:
         pygame.init()
         pygame.display.set_caption("Asteroids")
 
-    def _play_again(self) -> None:
-        pass
+    def _setup(self) -> None:
+        self.spaceship = Spaceship((400, 300), self.bullets.append)
 
     def _handle_input(self) -> None:
         for event in pygame.event.get():
@@ -31,9 +35,18 @@ class Asteroids:
     def _process_game_logic(self) -> None:
         pass
 
+    def _get_game_objects(self) -> list[GameObject]:
+        game_objects = []
+        if self.spaceship:
+            game_objects.append(self.spaceship)
+        return game_objects
+    
     def _draw(self) -> None:
         self.screen.blit(self.background, (0, 0))
 
+        for game_object in self._get_game_objects():
+            game_object.draw(self.screen)
+            
         pygame.display.flip()
         self.clock.tick(60)
 

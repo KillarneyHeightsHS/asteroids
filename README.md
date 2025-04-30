@@ -56,7 +56,72 @@ Install the required libraries using pip
 `pip install -r requirements.txt`
 
 ## Step 5
+Run the command
+`git checkout 0-basecode`
+to switch to the base code branch. 
+
+## Step 6
 Run the code to check that everything is working.
 `python.exe main.py`
 or
 `python3 main.py`
+
+Key things to note:
+- `models.py` contains the game objects and their behaviours
+- `util.py` contains utility functions for loading assets, etc.
+- `main.py` is the entry point of the game.
+- `space_rocks.py` is where the game loop is defined.
+
+## Step 7
+Adding the Spaceship
+
+We need to modify `space_rocks.py` to load the spaceship sprite and add it to the game.
+
+1. import the Spaceship and GameObject classes from models at the top of the file
+
+```python
+from models import Spaceship, GameObject
+```
+
+2. Update the constructor with the spaceship, bullets which we will get to but needed for now. We also call `_setup` to setup the game.
+
+```python
+    def __init__(self) -> None:
+        self._init_pygame()
+        self.screen = pygame.display.set_mode((800, 600))
+        self.background = load_sprite("space", False)
+        self.clock = pygame.time.Clock()
+        self.spaceship = None
+        self.bullets = []
+        self._setup()
+```
+
+3. Define `_setup` method to create the spaceship object as it will allow us to reset the game in a later step. The coordinates used will place the spaceship in the centre of the screen.
+
+```python
+    def _setup(self) -> None:
+        self.spaceship = Spaceship((400, 300), self.bullets.append)
+```
+
+4. Create a way to manage all of the game objects by creating a `_get_game_objects` method that returns a list of game objects.
+
+```python
+    def _get_game_objects(self) -> list[GameObject]:
+        game_objects = []
+        if self.spaceship:
+            game_objects.append(self.spaceship)
+        return game_objects
+```
+
+5. Update the `draw()` method to display all game objects on the screen. In this case the newly added spaceship.
+
+```python
+    def _draw(self) -> None:
+        self.screen.blit(self.background, (0, 0))
+
+        for game_object in self._get_game_objects():
+            game_object.draw(self.screen)
+            
+        pygame.display.flip()
+        self.clock.tick(60)
+```
