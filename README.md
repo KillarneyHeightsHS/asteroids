@@ -296,7 +296,6 @@ The game is kind of boring without collisions. Both of asteroids with the spaces
                 if asteroid.collides_with(self.spaceship):
                     self.spaceship.destroy()
                     self.spaceship = None
-                    self.message = "You lost!"
                     break
 ```
 

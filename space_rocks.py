@@ -73,7 +73,6 @@ class Asteroids:
                 if asteroid.collides_with(self.spaceship):
                     self.spaceship.destroy()
                     self.spaceship = None
-                    self.message = "You lost!"
                     break
 
         for bullet in self.bullets[:]:
