@@ -158,3 +158,64 @@ from models import Spaceship, GameObject
         for game_object in self._get_game_objects():
             game_object.move(self.screen)
 ```
+
+## Step 9 - Bullets
+Lets make the ship fire bullets when the space bar is pressed.
+
+1. Ensure that the screen is cleared of existing bullets when restarting
+
+```python
+    def _setup(self) -> None:
+        self.bullets.clear()    # <--- New code
+        self.spaceship = Spaceship((400, 300), self.bullets.append)
+```
+
+2. Make the spaceship shoot bullets and play a sound when shooting
+
+```python
+    def _handle_input(self) -> None:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (
+                event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                quit()
+            # Shoot bullets when the spacebar is pressed
+            elif (self.spaceship and event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+                self.spaceship.shoot()                
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r):
+                self._setup()
+
+        is_key_pressed = pygame.key.get_pressed()
+
+        if self.spaceship:
+            if is_key_pressed[pygame.K_RIGHT]:
+                self.spaceship.rotate(clockwise=True)
+            elif is_key_pressed[pygame.K_LEFT]:
+                self.spaceship.rotate(clockwise=False)
+            elif is_key_pressed[pygame.K_UP]:
+                self.spaceship.accelerate()
+            elif is_key_pressed[pygame.K_DOWN]:
+                self.spaceship.decelerate()
+```
+
+3. Don't allow bullets to wrap around the screen. Instead, remove them when they go off-screen.
+
+```python
+    def _process_game_logic(self) -> None:
+        for game_object in self._get_game_objects():
+            game_object.move(self.screen)
+        
+        # remove the bullets when they go off the screen
+        for bullet in self.bullets[:]:
+            if not self.screen.get_rect().collidepoint(bullet.position):
+                self.bullets.remove(bullet)
+```
+
+4. Make sure the bullets are drawing on the screen
+```python
+    def _get_game_objects(self) -> list[GameObject]:
+        # Include the bullets in the list of game objects
+        game_objects = [*self.bullets] 
+        if self.spaceship:
+            game_objects.append(self.spaceship)
+        return game_objects
+```

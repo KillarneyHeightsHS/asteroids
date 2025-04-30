@@ -24,6 +24,7 @@ class Asteroids:
         pygame.display.set_caption("Asteroids")
 
     def _setup(self) -> None:
+        self.bullets.clear()
         self.spaceship = Spaceship((400, 300), self.bullets.append)
 
     def _handle_input(self) -> None:
@@ -31,6 +32,8 @@ class Asteroids:
             if event.type == pygame.QUIT or (
                 event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 quit()
+            elif (self.spaceship and event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+                self.spaceship.shoot()                
             elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r):
                 self._setup()
 
@@ -50,8 +53,12 @@ class Asteroids:
         for game_object in self._get_game_objects():
             game_object.move(self.screen)
             
+        for bullet in self.bullets[:]:
+            if not self.screen.get_rect().collidepoint(bullet.position):
+                self.bullets.remove(bullet)
+
     def _get_game_objects(self) -> list[GameObject]:
-        game_objects = []
+        game_objects = [*self.bullets]
         if self.spaceship:
             game_objects.append(self.spaceship)
         return game_objects
