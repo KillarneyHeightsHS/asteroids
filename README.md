@@ -397,3 +397,9 @@ from util import get_random_position, load_sprite, print_text
         pygame.display.flip()
         self.clock.tick(60)
 ```
+
+## Extensions
+- Add in a scoring and a scoreboard
+- Add in power-ups that can be collected by the spaceship
+- Add in different levels with increasing difficulty
+- Support for multiple players
