@@ -124,3 +124,37 @@ from models import Spaceship, GameObject
         pygame.display.flip()
         self.clock.tick(60)
 ```
+
+## Step 8 - Ship movement
+
+1. Add in support for key presses to enable movement
+
+```python
+    def _handle_input(self) -> None:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (
+                event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                quit()
+            elif (event.type == pygame.KEYDOWN and event.key == pygame.K_r):
+                self._setup()
+
+        is_key_pressed = pygame.key.get_pressed()
+
+        if self.spaceship:
+            if is_key_pressed[pygame.K_RIGHT]:
+                self.spaceship.rotate(clockwise=True)
+            elif is_key_pressed[pygame.K_LEFT]:
+                self.spaceship.rotate(clockwise=False)
+            elif is_key_pressed[pygame.K_UP]:
+                self.spaceship.accelerate()
+            elif is_key_pressed[pygame.K_DOWN]:
+                self.spaceship.decelerate()
+```
+
+2. Ensure that any movement is display on screen
+
+```python
+    def _process_game_logic(self) -> None:
+        for game_object in self._get_game_objects():
+            game_object.move(self.screen)
+```
