@@ -7,9 +7,12 @@ Clone the repository on github using GitHub Desktop and open the project using v
 Remember in vscode you can have a terminal window with a command line open by pressing ``Ctrl+` ``
 ## Step 1
 Ensure Python is installed
-windows: `py.exe --version`
-or
-mac: `python3 --version`
+- windows: 
+    
+    `py.exe --version`
+- mac: 
+    
+    `python3 --version`
 
 If you have installed Python previously but it will not run from the command line, try reinstalling it and ensure that you check the option to include Python in your `PATH`.
 
@@ -18,9 +21,12 @@ Ensure pip is installed.
 
 Pip is a package manager for Python. It helps you add and manage third-party libraries that you can use for coding.
 
-windows: `py.exe -m ensurepip`
-or
-mac: `python3 -m ensurepip`
+- windows: 
+    
+    `py.exe -m ensurepip`
+- mac: 
+    
+    `python3 -m ensurepip`
 
 If pip is installed you should see something similar to the following:
 ```
@@ -32,24 +38,32 @@ Requirement already satisfied: pip in c:\users\mrbev\appdata\local\programs\pyth
 ## Step 3
 Create a virtual environment. This will allow us to run our code in its own space and help ensure that all commands work without changing the overall computer setup.
 
-`py.exe -m venv .venv`
-or 
-`python3 -m venv .venv`
+- windows
+    
+    `py.exe -m venv .venv`
+
+- mac
+
+    `python3 -m venv .venv`
 
 To confirm this has worked and start the virtual environment type the following:
-windows: `.\.venv\Scripts\Activate.bat`
-or 
-mac: `source .venv/bin/activate`
+
+- windows: 
+    
+    `.\.venv\Scripts\Activate.bat`
+- mac: 
+
+    `source .venv/bin/activate`
 
 If this is successful your terminal should look something like:
 - windows:
-```
-(.venv) PS C:\Users\mrbev\Documents\GitHub\asteroids\.venv\Scripts>
-```
+    ```
+    (.venv) PS C:\Users\mrbev\Documents\GitHub\asteroids\.venv\Scripts>
+    ```
 - mac:
-```
-(.venv) mrbev@Mac asteroids %
-```
+    ```
+    (.venv) mrbev@Mac asteroids %
+    ```
 
 ## Step 4
 Install the required libraries using pip
@@ -68,9 +82,13 @@ to switch to the base code branch.
 
 ## Step 6
 Run the code to check that everything is working.
-`python.exe main.py`
-or
-`python3 main.py`
+- Windows
+
+    ```python.exe main.py```
+
+- Mac
+
+    ```python3 main.py```
 
 Key things to note:
 - `models.py` contains the game objects and their behaviours
