@@ -56,7 +56,13 @@ Install the required libraries using pip
 `pip install -r requirements.txt`
 
 ## Step 5
-Run the command
+In github desktop:
+1. Set the current repository to `asteroids`
+2. Set the current branch to `0-basecode`
+
+_or_
+
+From the commandline run the command
 `git checkout 0-basecode`
 to switch to the base code branch. 
 
