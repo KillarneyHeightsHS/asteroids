@@ -9,10 +9,10 @@ Remember in vscode you can have a terminal window with a command line open by pr
 Ensure Python is installed
 - windows: 
     
-    `py.exe --version`
+    ```py.exe --version```
 - mac: 
     
-    `python3 --version`
+    ```python3 --version```
 
 If you have installed Python previously but it will not run from the command line, try reinstalling it and ensure that you check the option to include Python in your `PATH`.
 
@@ -23,10 +23,10 @@ Pip is a package manager for Python. It helps you add and manage third-party lib
 
 - windows: 
     
-    `py.exe -m ensurepip`
+    ```py.exe -m ensurepip```
 - mac: 
     
-    `python3 -m ensurepip`
+    ```python3 -m ensurepip```
 
 If pip is installed you should see something similar to the following:
 ```
@@ -40,20 +40,20 @@ Create a virtual environment. This will allow us to run our code in its own spac
 
 - windows
     
-    `py.exe -m venv .venv`
+    ```py.exe -m venv .venv```
 
 - mac
 
-    `python3 -m venv .venv`
+    ```python3 -m venv .venv```
 
 To confirm this has worked and start the virtual environment type the following:
 
 - windows: 
     
-    `.\.venv\Scripts\Activate.bat`
+    ```.\.venv\Scripts\Activate.bat```
 - mac: 
 
-    `source .venv/bin/activate`
+    ```source .venv/bin/activate```
 
 If this is successful your terminal should look something like:
 - windows:
